@@ -1,0 +1,27 @@
+digraph {
+rankdir=LR;J -> {H W K E F N};
+N -> {C I B L X};
+G -> {P C M F X Z};
+M -> {I O D H U Z};
+H -> {X R T};
+B -> {Y Q S};
+C -> {L};
+F -> {I V Q L T Z R A};
+V -> {O A Z P T E U};
+W -> {Q X E};
+E -> {L K Y};
+U -> {S O X R L};
+D -> {K L O T};
+Y -> {X Z A};
+T -> {R Q};
+I -> {K S R Z O};
+A -> {K X O L};
+L -> {X O S R};
+Q -> {S P O X K};
+S -> {O X P K Z};
+P -> {Z R X O};
+X -> {R K Z O};
+Z -> {O K};
+O -> {K R};
+R -> {K};
+}
