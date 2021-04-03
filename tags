@@ -1,0 +1,183 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Cell	2018/06/1206.py	/^class Cell():$/;"	c
+Claim	2018/03/1203.py	/^Claim = namedtuple('Claim', ['left', 'top', 'w', 'h'])$/;"	v
+Counter	2018/04/1204.py	/^from collections import defaultdict, Counter$/;"	i
+Counter	2018/06/1206.py	/^from collections import namedtuple, Counter, deque$/;"	i
+Counter	2018/07/1207.py	/^from collections import defaultdict, namedtuple, Counter, deque$/;"	i
+Counter	2018/1207.py	/^from collections import namedtuple, deque, defaultdict, Counter$/;"	i
+GEN_COUNT	2018/12/12.py	/^GEN_COUNT = 20$/;"	v
+GEN_COUNT_2	2018/12/12.py	/^GEN_COUNT_2 = 50000000000$/;"	v
+Matrix	2018/07/1207.py	/^class Matrix(object):$/;"	c
+NUM_WORKERS	2018/07/1207.py	/^NUM_WORKERS = 5$/;"	v
+Node	2018/08/8.py	/^class Node(object):$/;"	c
+Point	2018/10/10.py	/^Point = namedtuple('Point', ['x', 'y', 'dx', 'dy'])$/;"	v
+Pos	2018/03/1203.py	/^Pos = namedtuple('Pos', ['x', 'y'])$/;"	v
+Pos	2018/06/1206.py	/^Pos = namedtuple('Pos', ['x','y'])$/;"	v
+Record	2018/04/1204.py	/^class Record():$/;"	c
+Req	2018/07/1207.py	/^Req = namedtuple('Req', ['src', 'dst'])$/;"	v
+Req	2018/1207.py	/^Req = namedtuple('Req', ['before', 'after'])$/;"	v
+S	2018/1207.py	/^S = [n for n in m_out.keys() if (len(m_in[n]) == 0)]$/;"	v
+__eq__	2018/06/1206.py	/^    def __eq__(self, other):$/;"	m	class:Cell	file:
+__init__	2018/04/1204.py	/^    def __init__(self, recStr):$/;"	m	class:Record
+__init__	2018/06/1206.py	/^    def __init__(self, x, y):$/;"	m	class:Cell
+__init__	2018/07/1207.py	/^    def __init__(self, nodes, edges):$/;"	m	class:Matrix
+__init__	2018/08/8.py	/^    def __init__(self):$/;"	m	class:Node
+__repr__	2018/04/1204.py	/^    def __repr__(self):$/;"	m	class:Record	file:
+__repr__	2018/06/1206.py	/^    def __repr__(self):$/;"	m	class:Cell	file:
+__repr__	2018/08/8.py	/^    def __repr__(self):$/;"	m	class:Node	file:
+addEdge	2018/07/1207.py	/^    def addEdge(self, src, dst):$/;"	m	class:Matrix
+boundingArea	2018/10/10.py	/^def boundingArea(box):$/;"	f
+boundingBox	2018/10/10.py	/^def boundingBox(state):$/;"	f
+boxIds	2018/02/1202.py	/^    boxIds = [l.strip() for l in f.readlines()]$/;"	v
+c	2018/06/1206.py	/^c = Counter([cell.closest for row in matrix for cell in row if (cell.closest not in edgesSet)])$/;"	v
+calcRegionSum	2018/11/11.py	/^def calcRegionSum(topLeftX, topLeftY, bottomRightX, bottomRightY):$/;"	f
+canWork	2018/1207.py	/^        canWork = [n for n in zero_incoming if ((n not in finished) and (n not in currWorking))]$/;"	v
+chain	2018/07/1207.py	/^from itertools import chain$/;"	i
+charCounts	2018/02/1202.py	/^    charCounts = defaultdict(int)$/;"	v
+claims	2018/03/1203.py	/^    claims = [Claim(*[int(x) for x in re.split(',|:|x', ''.join(l.split()[2:]))]) for l in f.readlines()]$/;"	v
+closest	2018/06/1206.py	/^        closest = [p for p,d in dists if (d == min(x[1] for x in dists))]$/;"	v
+commonSeq	2018/02/1202.py	/^def commonSeq(s1, s2):$/;"	f
+count	2018/10/10.py	/^from itertools import count$/;"	i
+count	2018/1207.py	/^from itertools import count$/;"	i
+counts	2018/02/1202.py	/^    counts = [v for k,v in charCounts.items()]$/;"	v
+counts	2018/07/other.py	/^counts = [0] * 5 # seconds remaining for worker `i` to finish its current task$/;"	v
+currBox	2018/10/10.py	/^    currBox = boundingBox(currSky)$/;"	v
+currBoxArea	2018/10/10.py	/^    currBoxArea = boundingArea(currBox)$/;"	v
+currGuardMaxSlept	2018/04/1204.py	/^    currGuardMaxSlept = Counter(sleepingMins).most_common(1)[0]$/;"	v
+currSky	2018/10/10.py	/^    currSky = state(t)$/;"	v
+currWorkerPrev	2018/07/1207.py	/^        currWorkerPrev = workAssignments[workerId][-1] if (len(workAssignments[workerId]) > 0) else None$/;"	v
+currWorking	2018/1207.py	/^        currWorking = [w[-1] for w in workingSchedule if len(w) > 0]$/;"	v
+currZeroIncoming	2018/07/1207.py	/^    currZeroIncoming = heapq.heappop(zeroIncoming)$/;"	v
+cycle	2018/01/1201.py	/^from itertools import cycle$/;"	i
+cycle	2018/09/9.py	/^from itertools import cycle$/;"	i
+datetime	2018/04/1204.py	/^from datetime import datetime$/;"	i
+deepcopy	2018/12/12.py	/^from copy import deepcopy$/;"	i
+defaultdict	2018/02/1202.py	/^from collections import defaultdict$/;"	i
+defaultdict	2018/03/1203.py	/^from collections import defaultdict, namedtuple$/;"	i
+defaultdict	2018/04/1204.py	/^from collections import defaultdict, Counter$/;"	i
+defaultdict	2018/07/1207.py	/^from collections import defaultdict, namedtuple, Counter, deque$/;"	i
+defaultdict	2018/07/other.py	/^from collections import defaultdict$/;"	i
+defaultdict	2018/11/11.py	/^from collections import defaultdict$/;"	i
+defaultdict	2018/12/12.py	/^from collections import defaultdict$/;"	i
+defaultdict	2018/1207.py	/^from collections import namedtuple, deque, defaultdict, Counter$/;"	i
+deps	2018/07/other.py	/^deps = defaultdict(set)$/;"	v
+deque	2018/05/1205.py	/^from collections import deque$/;"	i
+deque	2018/06/1206.py	/^from collections import namedtuple, Counter, deque$/;"	i
+deque	2018/07/1207.py	/^from collections import defaultdict, namedtuple, Counter, deque$/;"	i
+deque	2018/09/9.py	/^from collections import deque$/;"	i
+deque	2018/1207.py	/^from collections import namedtuple, deque, defaultdict, Counter$/;"	i
+destroy	2018/05/1205.py	/^def destroy(c1, c2):$/;"	f
+diffDist	2018/02/1202.py	/^def diffDist(s1, s2):$/;"	f
+distCounter	2018/06/1206.py	/^distCounter = Counter([cell.distSum for row in matrix for cell in row])$/;"	v
+dists	2018/06/1206.py	/^        dists = [(p, manDist(cell.p, p)) for p in posList]$/;"	v
+doableWork	2018/07/1207.py	/^doableWork = zeroIncoming.copy()$/;"	v
+done	2018/07/other.py	/^done = []$/;"	v
+done	2018/07/other.py	/^done = set()$/;"	v
+dstNodes	2018/07/1207.py	/^    dstNodes = list(m.outgoing(currZeroIncoming))$/;"	v
+edges	2018/06/1206.py	/^edges = []$/;"	v
+edgesSet	2018/06/1206.py	/^edgesSet = set([e for e in edges if (e != None)])$/;"	v
+encodedTree	2018/08/8.py	/^    encodedTree = iter(line.split())$/;"	v
+fileinput	2018/07/other.py	/^import fileinput$/;"	i
+fileinput	2018/08/8.py	/^import fileinput$/;"	i
+fileinput	2018/09/9.py	/^import fileinput$/;"	i
+fileinput	2018/10/10.py	/^import fileinput$/;"	i
+fileinput	2018/11/11.py	/^import fileinput$/;"	i
+fileinput	2018/12/12.py	/^import fileinput$/;"	i
+finalSeq	2018/07/1207.py	/^finalSeq = []$/;"	v
+finishWork	2018/07/1207.py	/^def finishWork():$/;"	f
+finished	2018/1207.py	/^finished = []$/;"	v
+freqList	2018/01/1201.py	/^    freqList = [line.strip() for line in f]$/;"	v
+gameInfo	2018/09/9.py	/^gameInfo = []$/;"	v
+getValue	2018/08/8.py	/^def getValue(n):$/;"	f
+gridSerial	2018/11/11.py	/^    gridSerial = (int(l))$/;"	v
+gridSerial	2018/11/11.py	/^gridSerial = None$/;"	v
+guardNum	2018/04/1204.py	/^guardNum = -1$/;"	v
+guardSleepMins	2018/04/1204.py	/^guardSleepMins = defaultdict(list)$/;"	v
+heapq	2018/07/1207.py	/^import heapq$/;"	i
+heapq	2018/1207.py	/^import heapq$/;"	i
+i	2018/07/other.py	/^        i = counts.index(0)$/;"	v
+incoming	2018/07/1207.py	/^    def incoming(self, n):$/;"	m	class:Matrix
+lines	2018/12/12.py	/^lines = list(fileinput.input())$/;"	v
+m	2018/07/1207.py	/^m = Matrix(nodes, reqs)$/;"	v
+m2	2018/07/1207.py	/^m2 = Matrix(nodes, reqs)$/;"	v
+manDist	2018/06/1206.py	/^def manDist(p1, p2):$/;"	f
+matched	2018/09/9.py	/^    matched = re.search(r'(\\d+) players.* (\\d+) points.*', line)$/;"	v
+matched	2018/10/10.py	/^    matched = re.search(r'position=<\\ *(-?\\d+),\\ *(-?\\d+)>\\ *velocity=<\\ *(-?\\d+),\\ *(-?\\d+)>', l)$/;"	v
+matrix	2018/06/1206.py	/^matrix = [[Cell(row, col) for row in range(top, bottom+1)] for col in range(left, right+1)]$/;"	v
+maxSlept	2018/04/1204.py	/^maxSlept = None$/;"	v
+maxTopLeft	2018/11/11.py	/^maxTopLeft = max(topLefts, key=lambda p: sum([power(p[0]+dx, p[1]+dy, gridSerial) for dx in range(3) for dy in range(3)]))$/;"	v
+metaSum	2018/08/8.py	/^metaSum = 0$/;"	v
+minLen	2018/05/1205.py	/^    minLen = min(minLen, newLen)$/;"	v
+minLen	2018/05/1205.py	/^minLen = float('inf')$/;"	v
+multOccurPos	2018/03/1203.py	/^multOccurPos = [p for p, count in posOccurs.items() if count > 1]$/;"	v
+namedtuple	2018/03/1203.py	/^from collections import defaultdict, namedtuple$/;"	i
+namedtuple	2018/06/1206.py	/^from collections import namedtuple, Counter, deque$/;"	i
+namedtuple	2018/07/1207.py	/^from collections import defaultdict, namedtuple, Counter, deque$/;"	i
+namedtuple	2018/10/10.py	/^from collections import namedtuple$/;"	i
+namedtuple	2018/1207.py	/^from collections import namedtuple, deque, defaultdict, Counter$/;"	i
+newLen	2018/05/1205.py	/^    newLen = len(reactPoly(deque([e for e in polymer if (e not in [chr(troubleMaker), chr(troubleMaker).upper()])])))$/;"	v
+node	2018/1207.py	/^    node = heapq.heappop(S)$/;"	v
+nodes	2018/07/1207.py	/^nodes = set()$/;"	v
+numWorkers	2018/1207.py	/^numWorkers = 5$/;"	v
+outgoing	2018/07/1207.py	/^    def outgoing(self, n):$/;"	m	class:Matrix
+parse	2018/07/1207.py	/^def parse(s):$/;"	f
+parse	2018/1207.py	/^def parse(s):$/;"	f
+playGame	2018/09/9.py	/^def playGame(numPlayers, numPoints):$/;"	f
+polymer	2018/05/1205.py	/^    polymer = deque(f.read().strip())$/;"	v
+populateTree	2018/08/8.py	/^def populateTree():$/;"	f
+posOccurs	2018/03/1203.py	/^posOccurs = defaultdict(int)$/;"	v
+power	2018/11/11.py	/^def power(x,y,serial):$/;"	f
+prevArea	2018/10/10.py	/^    prevArea = currBoxArea$/;"	v
+prevWork	2018/1207.py	/^        prevWork = None if (t == 0) else worker[-1]$/;"	v
+printSky	2018/10/10.py	/^def printSky(state):$/;"	f
+re	2018/03/1203.py	/^import re$/;"	i
+re	2018/04/1204.py	/^import re$/;"	i
+re	2018/07/1207.py	/^import re$/;"	i
+re	2018/07/other.py	/^import re$/;"	i
+re	2018/09/9.py	/^import re$/;"	i
+re	2018/10/10.py	/^import re$/;"	i
+re	2018/12/12.py	/^import re$/;"	i
+re	2018/1207.py	/^import re$/;"	i
+reactPoly	2018/05/1205.py	/^def reactPoly(polymer):$/;"	f
+records	2018/04/1204.py	/^    records = [Record(l.strip()) for l in f.readlines()]$/;"	v
+reduce	2018/01/1201.py	/^from functools import reduce$/;"	i
+reduce	2018/02/1202.py	/^    from functools import reduce$/;"	i
+remWork	2018/07/1207.py	/^remWork = Counter({c:workTime(c) for c in finalSeq})$/;"	v
+removeEdge	2018/07/1207.py	/^    def removeEdge(self, src, dst):$/;"	m	class:Matrix
+reqs	2018/07/1207.py	/^    reqs = [Req(*parse(l.strip())) for l in f.readlines()]$/;"	v
+reqs	2018/1207.py	/^    reqs = [parse(l.strip()) for l in f.readlines()]$/;"	v
+root	2018/08/8.py	/^root = populateTree()$/;"	v
+rules	2018/12/12.py	/^rules = dict(line.split()[::2] for line in lines[2:])$/;"	v
+s	2018/12/12.py	/^    s = step(s)$/;"	v
+s	2018/12/12.py	/^s = start$/;"	v
+safeRegionArea	2018/06/1206.py	/^safeRegionArea = sum([c[1] for c in distCounter.items() if c[0] < 10000])$/;"	v
+seconds	2018/07/other.py	/^seconds = 0      # total seconds elapsed$/;"	v
+sleepyGuardId	2018/04/1204.py	/^sleepyGuardId = max(guardSleepMins.keys(), key=lambda g: len(guardSleepMins[g]))$/;"	v
+stars	2018/10/10.py	/^stars = []$/;"	v
+start	2018/12/12.py	/^start = set(idx for idx,x in enumerate(lines[0].split()[-1]) if x == PLANT)$/;"	v
+state	2018/10/10.py	/^def state(t):$/;"	f
+step	2018/12/12.py	/^def step(state):$/;"	f
+steps	2018/1207.py	/^steps = deque([])$/;"	v
+summed	2018/01/1201.py	/^summed = reduce(lambda acc, curr: acc + int(curr), freqList, 0)$/;"	v
+summed_area_table	2018/11/11.py	/^summed_area_table = defaultdict(int)$/;"	v
+task	2018/07/other.py	/^        task = min(candidates)$/;"	v
+tasks	2018/07/other.py	/^tasks = set()$/;"	v
+todos	2018/1207.py	/^todos = Counter({ch : workTime(ch) for ch in ''.join(steps)})$/;"	v
+topLefts	2018/11/11.py	/^topLefts = [(x,y) for x in range(300-3+1) for y in range(300-3+1)]$/;"	v
+totalTime	2018/1207.py	/^totalTime = 0$/;"	v
+updateWorkable	2018/1207.py	/^def updateWorkable():$/;"	f
+visited	2018/1207.py	/^visited = set()$/;"	v
+work	2018/07/other.py	/^work = [''] * 5  # which task worker `i` is performing$/;"	v
+workAssignments	2018/07/1207.py	/^workAssignments = [[] for _ in range(NUM_WORKERS)]$/;"	v
+workTime	2018/07/1207.py	/^def workTime(c):$/;"	f
+workTime	2018/1207.py	/^def workTime(s): return 60 + int(ord(s) - ord('A') + 1)$/;"	f
+workingSchedule	2018/1207.py	/^workingSchedule = [[] for _ in range(numWorkers)]$/;"	v
+writeWorking	2018/1207.py	/^def writeWorking():$/;"	f
+zeroIncoming	2018/07/1207.py	/^zeroIncoming = [n for n in m.nodes if len(m.incoming(n)) == 0]$/;"	v
+zeroIncoming	2018/07/1207.py	/^zeroIncoming = [n for n in m.nodes if len(m2.incoming(n)) == 0]$/;"	v
+zero_incoming	2018/1207.py	/^zero_incoming = [n for n in m_out_2.keys() if (len(m_in_2[n]) == 0)]$/;"	v

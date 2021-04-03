@@ -1,5 +1,5 @@
 digraph {
-rankdir=LR;J -> {H W K E F N};
+rankdir=LR;graph [ordering="out"];J -> {H W K E F N};
 N -> {C I B L X};
 G -> {P C M F X Z};
 M -> {I O D H U Z};
