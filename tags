@@ -10,6 +10,8 @@ Counter	2018/04/1204.py	/^from collections import defaultdict, Counter$/;"	i
 Counter	2018/06/1206.py	/^from collections import namedtuple, Counter, deque$/;"	i
 Counter	2018/07/1207.py	/^from collections import defaultdict, namedtuple, Counter, deque$/;"	i
 Counter	2018/1207.py	/^from collections import namedtuple, deque, defaultdict, Counter$/;"	i
+Counter	2020/day2/day2.py	/^    from collections import namedtuple, Counter$/;"	i
+Counter	2020/day3/day3.py	/^    from collections import namedtuple, Counter$/;"	i
 GEN_COUNT	2018/12/12.py	/^GEN_COUNT = 20$/;"	v
 GEN_COUNT_2	2018/12/12.py	/^GEN_COUNT_2 = 50000000000$/;"	v
 Matrix	2018/07/1207.py	/^class Matrix(object):$/;"	c
@@ -55,7 +57,11 @@ currWorking	2018/1207.py	/^        currWorking = [w[-1] for w in workingSchedule
 currZeroIncoming	2018/07/1207.py	/^    currZeroIncoming = heapq.heappop(zeroIncoming)$/;"	v
 cycle	2018/01/1201.py	/^from itertools import cycle$/;"	i
 cycle	2018/09/9.py	/^from itertools import cycle$/;"	i
+d1	2020/main.py	/^import day1.day1 as d1$/;"	i
+d2	2020/main.py	/^import day2.day2 as d2$/;"	i
 datetime	2018/04/1204.py	/^from datetime import datetime$/;"	i
+day1	2020/main.py	/^import day1.day1 as d1$/;"	i
+day2	2020/main.py	/^import day2.day2 as d2$/;"	i
 deepcopy	2018/12/12.py	/^from copy import deepcopy$/;"	i
 defaultdict	2018/02/1202.py	/^from collections import defaultdict$/;"	i
 defaultdict	2018/03/1203.py	/^from collections import defaultdict, namedtuple$/;"	i
@@ -82,6 +88,7 @@ dstNodes	2018/07/1207.py	/^    dstNodes = list(m.outgoing(currZeroIncoming))$/;"
 edges	2018/06/1206.py	/^edges = []$/;"	v
 edgesSet	2018/06/1206.py	/^edgesSet = set([e for e in edges if (e != None)])$/;"	v
 encodedTree	2018/08/8.py	/^    encodedTree = iter(line.split())$/;"	v
+fileUtil	2020/main.py	/^import utils.fileUtil$/;"	i
 fileinput	2018/07/other.py	/^import fileinput$/;"	i
 fileinput	2018/08/8.py	/^import fileinput$/;"	i
 fileinput	2018/09/9.py	/^import fileinput$/;"	i
@@ -102,6 +109,13 @@ heapq	2018/07/1207.py	/^import heapq$/;"	i
 heapq	2018/1207.py	/^import heapq$/;"	i
 i	2018/07/other.py	/^        i = counts.index(0)$/;"	v
 incoming	2018/07/1207.py	/^    def incoming(self, n):$/;"	m	class:Matrix
+input_path_2020	2020/main.py	/^input_path_2020 = pathlib.Path(".") \/ "2020"$/;"	v
+input_path_2020_day1	2020/main.py	/^input_path_2020_day1 = input_path_2020 \/ "day1" \/ "input.in"$/;"	v
+input_path_2020_day2	2020/main.py	/^input_path_2020_day2 = input_path_2020 \/ "day2" \/ "input.in"$/;"	v
+isValidOne	2020/day2/day2.py	/^    def isValidOne(lineInfo):$/;"	f	function:solve
+isValidOne	2020/day3/day3.py	/^    def isValidOne(lineInfo):$/;"	f	function:solve
+isValidTwo	2020/day2/day2.py	/^    def isValidTwo(lineInfo):$/;"	f	function:solve
+isValidTwo	2020/day3/day3.py	/^    def isValidTwo(lineInfo):$/;"	f	function:solve
 lines	2018/12/12.py	/^lines = list(fileinput.input())$/;"	v
 m	2018/07/1207.py	/^m = Matrix(nodes, reqs)$/;"	v
 m2	2018/07/1207.py	/^m2 = Matrix(nodes, reqs)$/;"	v
@@ -120,13 +134,25 @@ namedtuple	2018/06/1206.py	/^from collections import namedtuple, Counter, deque$
 namedtuple	2018/07/1207.py	/^from collections import defaultdict, namedtuple, Counter, deque$/;"	i
 namedtuple	2018/10/10.py	/^from collections import namedtuple$/;"	i
 namedtuple	2018/1207.py	/^from collections import namedtuple, deque, defaultdict, Counter$/;"	i
+namedtuple	2020/day2/day2.py	/^    from collections import namedtuple, Counter$/;"	i
+namedtuple	2020/day3/day3.py	/^    from collections import namedtuple, Counter$/;"	i
 newLen	2018/05/1205.py	/^    newLen = len(reactPoly(deque([e for e in polymer if (e not in [chr(troubleMaker), chr(troubleMaker).upper()])])))$/;"	v
 node	2018/1207.py	/^    node = heapq.heappop(S)$/;"	v
 nodes	2018/07/1207.py	/^nodes = set()$/;"	v
 numWorkers	2018/1207.py	/^numWorkers = 5$/;"	v
+os	2020/utils/fileUtil.py	/^import os$/;"	i
 outgoing	2018/07/1207.py	/^    def outgoing(self, n):$/;"	m	class:Matrix
 parse	2018/07/1207.py	/^def parse(s):$/;"	f
 parse	2018/1207.py	/^def parse(s):$/;"	f
+parse	2020/day2/day2.py	/^    def parse(lineStr):$/;"	f	function:solve
+parse	2020/day3/day3.py	/^    def parse(lineStr):$/;"	f	function:solve
+parseLetter	2020/day2/day2.py	/^    def parseLetter(letterStr):$/;"	f	function:solve
+parseLetter	2020/day3/day3.py	/^    def parseLetter(letterStr):$/;"	f	function:solve
+parsePassword	2020/day2/day2.py	/^    def parsePassword(parsePassword):$/;"	f	function:solve
+parsePassword	2020/day3/day3.py	/^    def parsePassword(parsePassword):$/;"	f	function:solve
+parseRange	2020/day2/day2.py	/^    def parseRange(rangeStr):$/;"	f	function:solve
+parseRange	2020/day3/day3.py	/^    def parseRange(rangeStr):$/;"	f	function:solve
+pathlib	2020/main.py	/^import pathlib$/;"	i
 playGame	2018/09/9.py	/^def playGame(numPlayers, numPoints):$/;"	f
 polymer	2018/05/1205.py	/^    polymer = deque(f.read().strip())$/;"	v
 populateTree	2018/08/8.py	/^def populateTree():$/;"	f
@@ -144,6 +170,7 @@ re	2018/10/10.py	/^import re$/;"	i
 re	2018/12/12.py	/^import re$/;"	i
 re	2018/1207.py	/^import re$/;"	i
 reactPoly	2018/05/1205.py	/^def reactPoly(polymer):$/;"	f
+readFile	2020/utils/fileUtil.py	/^def readFile(file_path):$/;"	f
 records	2018/04/1204.py	/^    records = [Record(l.strip()) for l in f.readlines()]$/;"	v
 reduce	2018/01/1201.py	/^from functools import reduce$/;"	i
 reduce	2018/02/1202.py	/^    from functools import reduce$/;"	i
@@ -158,6 +185,9 @@ s	2018/12/12.py	/^s = start$/;"	v
 safeRegionArea	2018/06/1206.py	/^safeRegionArea = sum([c[1] for c in distCounter.items() if c[0] < 10000])$/;"	v
 seconds	2018/07/other.py	/^seconds = 0      # total seconds elapsed$/;"	v
 sleepyGuardId	2018/04/1204.py	/^sleepyGuardId = max(guardSleepMins.keys(), key=lambda g: len(guardSleepMins[g]))$/;"	v
+solve	2020/day1/day1.py	/^def solve(input_lines):$/;"	f
+solve	2020/day2/day2.py	/^def solve(input_lines):$/;"	f
+solve	2020/day3/day3.py	/^def solve(input_lines):$/;"	f
 stars	2018/10/10.py	/^stars = []$/;"	v
 start	2018/12/12.py	/^start = set(idx for idx,x in enumerate(lines[0].split()[-1]) if x == PLANT)$/;"	v
 state	2018/10/10.py	/^def state(t):$/;"	f
@@ -165,12 +195,14 @@ step	2018/12/12.py	/^def step(state):$/;"	f
 steps	2018/1207.py	/^steps = deque([])$/;"	v
 summed	2018/01/1201.py	/^summed = reduce(lambda acc, curr: acc + int(curr), freqList, 0)$/;"	v
 summed_area_table	2018/11/11.py	/^summed_area_table = defaultdict(int)$/;"	v
+sys	2020/main.py	/^import sys$/;"	i
 task	2018/07/other.py	/^        task = min(candidates)$/;"	v
 tasks	2018/07/other.py	/^tasks = set()$/;"	v
 todos	2018/1207.py	/^todos = Counter({ch : workTime(ch) for ch in ''.join(steps)})$/;"	v
 topLefts	2018/11/11.py	/^topLefts = [(x,y) for x in range(300-3+1) for y in range(300-3+1)]$/;"	v
 totalTime	2018/1207.py	/^totalTime = 0$/;"	v
 updateWorkable	2018/1207.py	/^def updateWorkable():$/;"	f
+utils	2020/main.py	/^import utils.fileUtil$/;"	i
 visited	2018/1207.py	/^visited = set()$/;"	v
 work	2018/07/other.py	/^work = [''] * 5  # which task worker `i` is performing$/;"	v
 workAssignments	2018/07/1207.py	/^workAssignments = [[] for _ in range(NUM_WORKERS)]$/;"	v
