@@ -1,7 +1,5 @@
 # Day 1, 2020
 
-# import fileUtil
-
 def solve(input_lines):
 
     print(f"######### Day 1")
