@@ -4,64 +4,68 @@ def solve(input_lines):
 
     print(f"######### Day 3")
 
-
-
-
-
-
-
-
-
+    # 1 down, 3 right
+    colCount, rowCount = len(input_lines[0]), len(input_lines)
     
-    from collections import namedtuple, Counter
-    Range = namedtuple('range', ['start', 'end'])
-    LineInfo = namedtuple('lineInfo', ['range', 'letter', 'pw'])
+    # get input + parse into 2D matrix -> don't need to do since string can be indexed just the same way
+    
+    # util function for wrap around indexing
+    def getTrueIndex(rowIdx, colIdx):
+        return (rowIdx, (colIdx % colCount))
 
-    # read / parse input
-    def parseRange(rangeStr):
-        startNum, endNum = rangeStr.split("-")
-        return Range(int(startNum), int(endNum))
-        return 
+    print(f"raw input {(50, 50)} becomes {getTrueIndex(50, 50)}")
 
-    def parseLetter(letterStr):
-        return letterStr[:-1]
+    # util function for isTree(x,y)
+    TREE, LAND = "#", "."
+    def isTree(rowIdx, colIdx):
+        trueRowIdx, trueColIdx = getTrueIndex(rowIdx, colIdx)
+        return input_lines[trueRowIdx][trueColIdx] == TREE
 
-    def parsePassword(parsePassword):
-        return parsePassword
+    # for x in range(colCount):
+    #     print(f"{0, x} is tree : {isTree(0, x)}")
 
-
-    def parse(lineStr):
-        tokens = lineStr.split(" ")
-        rangeObj = parseRange(tokens[0])
-        letterObj = parseLetter(tokens[1])
-        passwordObj = parsePassword(tokens[2])
-        return LineInfo(rangeObj, letterObj, passwordObj)
-
-
-    inputInfos = [ parse(l) for l in input_lines ]
-
-    # Find invalid password part 1
-    def isValidOne(lineInfo):
-        pwCounter = Counter(lineInfo.pw)
-        letterCount = pwCounter[lineInfo.letter]
-        return (lineInfo.range.start <= letterCount <= lineInfo.range.end)
-
-    # Find invalid password part 2
-    def isValidTwo(lineInfo):
-        # Note : start, end are 1-indexed
-        letter = lineInfo.letter
-        idx1 = lineInfo.range.start
-        idx2 = lineInfo.range.end
-        # exactly 1 must be that letter
-        idx1IsLetter = (lineInfo.pw[idx1-1] == letter)
-        idx2IsLetter = (lineInfo.pw[idx2-1] == letter)
-        return (idx1IsLetter) != (idx2IsLetter)
-
-    #x = inputInfos[0]
-    #y = isValid(inputInfos[0])
-    #print(f"{x} --- {y}")
+    # return count of trees
+    treeCounter = 0
+    rowIdx, colIdx = 0, 0
+    for iterIdx in range(rowCount):
+        # print(rowIdx, colIdx)
+        treeCounter += (1 if isTree(rowIdx, colIdx) else 0)
+        rowIdx, colIdx = rowIdx + 1, colIdx + 3
+    # print(treeCounter)
 
 
-    # TODO: find count of invalids
-    print(f"Total valids count : {len([x for x in inputInfos if isValidOne(x)])}")
-    print(f"Total valids count : {len([x for x in inputInfos if isValidTwo(x)])}")
+    # part 2
+
+    # slope := (row offset, col offset)
+    slopes = [
+        (1,1),
+        (1,3),
+        (1,5),
+        (1,7),
+        (2,1)
+    ]
+    acc = 1
+    for s in slopes:
+        treeCounter = 0
+        rowIdx, colIdx = 0, 0
+        for iterIdx in range(rowCount // s[0]):
+            # print(f"Row-Col : {rowIdx}-{colIdx} ")
+            treeCounter += (1 if isTree(rowIdx, colIdx) else 0)
+            rowIdx, colIdx = rowIdx + s[0], colIdx + s[1]
+        print(treeCounter)
+        acc *= treeCounter
+
+    print(acc)
+
+
+
+
+# Right 1, down 1.
+# Right 3, down 1. (This is the slope you already checked.)
+# Right 5, down 1.
+# Right 7, down 1.
+# Right 1, down 2.
+
+
+
+
