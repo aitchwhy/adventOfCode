@@ -5,6 +5,7 @@ import pathlib
 import day1.day1 as d1
 import day2.day2 as d2
 import day3.day3 as d3
+import day4.day4 as d4
 
 # import utils
 import utils.utils as utils
@@ -23,5 +24,5 @@ if __name__ == "__main__":
     print("Solving")
     # d1.solve(utils.readFile(mainDir / "day1/input.in"))
     # d2.solve(utils.readFile(mainDir / "day2/input.in"))
-    d3.solve(utils.readFile(mainDir / "day3/input.in"))
-    # d3.solve(utils.readFile(mainDir / "day3/sample.in"))
+    # d3.solve(utils.readFile(mainDir / "day3/input.in"))
+    d4.solve(utils.readFile(mainDir / "day4/input.in"))
