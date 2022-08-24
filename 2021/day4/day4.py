@@ -69,18 +69,39 @@ def solve(inputLines):
             boardLine = [int(x) for x in (next(linesIter).strip().split())]
             boardLines.append(boardLine)
         boards.append(Board(boardLines))
+
+    # part 1
+
+    # for n in numSeq:
+    #     for b in boards:
+    #         b.addNum(n)
+    #         bingoInfo = b.hasBingo()
+    #         if bingoInfo[0]:
+    #             print(f"bingo with winning board : {b}")
+    #             print(f"winning board info : {bingoInfo}")
+    #             lastCalled = b.getLastCalled()
+    #             uncalledSum = b.getUncalledSum()
+    #             print(f"last called : {lastCalled}")
+    #             print(f"final number : {lastCalled * uncalledSum}")
+    #             break
+    #             # return b.getLastCalled()
+
+    # part 2
+    unfinishedBoards = len(boards)
     for n in numSeq:
         for b in boards:
+            if b.hasBingo()[0]:
+                continue
             b.addNum(n)
             bingoInfo = b.hasBingo()
             if bingoInfo[0]:
-                print(f"bingo with winning board : {b}")
-                print(f"winning board info : {bingoInfo}")
-                lastCalled = b.getLastCalled()
-                uncalledSum = b.getUncalledSum()
-                print(f"last called : {lastCalled}")
-                print(f"final number : {lastCalled * uncalledSum}")
-                return
-                # return b.getLastCalled()
-        print(f"boards : {boards}")
-    # print(board)
+                print(f" ############ unfinished count : {unfinishedBoards}")
+                if (unfinishedBoards == 1):
+                    print(f"bingo with last winning board : {b}")
+                    print(f"winning board info : {bingoInfo}")
+                    lastCalled = b.getLastCalled()
+                    uncalledSum = b.getUncalledSum()
+                    print(f"last called : {lastCalled}")
+                    print(f"final number : {lastCalled * uncalledSum}")
+                    return
+                unfinishedBoards -= 1
