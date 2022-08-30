@@ -1,4 +1,6 @@
 
+from collections import Counter
+
 
 class Fish():
     newFishAge = 6
@@ -21,9 +23,33 @@ class Fish():
         return f"{self.age}"
 
 
+class FishSchool():
+
+    fishMaxAge = 8
+
+    def __init__(self, initAges):
+        self.fishCountByAge = Counter(initAges)
+
+    def __repr__(self):
+        return f"{self.fishCountByAge}"
+
+    def spendDay(self):
+        resetFishCount = self.fishCountByAge[0]
+        self.fishCountByAge[0] = 0
+        for age in range(1, FishSchool.fishMaxAge+1):
+            self.fishCountByAge[age-1] += self.fishCountByAge[age]
+            self.fishCountByAge[age] = 0
+        self.fishCountByAge[6] += resetFishCount
+        self.fishCountByAge[8] += resetFishCount
+
+    def getFishCount(self):
+        return sum(self.fishCountByAge.values())
+
+
 def solve(lineContents):
 
     # Parse input.
+    school = FishSchool([(int(x)) for x in lineContents[0].split(",")])
     fishes = [Fish(int(x)) for x in lineContents[0].split(",")]
     print(fishes)
 
@@ -33,12 +59,18 @@ def solve(lineContents):
 
     for day in range(days):
         print(f"Day {day}")
-        # Spend a day.
-        newFishCount = 0
-        for fish in fishes:
-            newFishCount += fish.spendDay()
-        fishes.extend([Fish(8) for _ in range(newFishCount)])
-        # print(fishes, newFishCount)
-        # print(fishes)
+        # part 1 (naive)
+        # # Spend a day.
+        # newFishCount = 0
+        # for fish in fishes:
+        #     newFishCount += fish.spendDay()
+        # fishes.extend([Fish(8) for _ in range(newFishCount)])
+        # # print(fishes, newFishCount)
+        # # print(fishes)
 
-    print(len(fishes))
+        # part 2 - keep counter (each day shift by 1 for each timer + add new)
+        school.spendDay()
+        # print(school, school.getFishCount())
+        print(school.getFishCount())
+
+    # print(len(fishes))
