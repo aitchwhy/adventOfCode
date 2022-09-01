@@ -32,4 +32,4 @@ if __name__ == "__main__":
     # d4.solve(utils.readFile(mainDir / "day4/input.in"))
     # d5.solve(utils.readFile(mainDir / "day5/input.in"))
     # d6.solve(utils.readFile(mainDir / "day6/input.in"))
-    d7.solve(utils.readFile(mainDir / "day7/sample.in"))
+    d7.solve(utils.readFile(mainDir / "day7/input.in"))
