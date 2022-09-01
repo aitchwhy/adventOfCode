@@ -18,9 +18,9 @@ import utils.utils as utils
 mainDir = pathlib.Path(__file__).parent
 
 print("######################")
-print(pathlib.Path("."))
-print(pathlib.Path.cwd())
-print(mainDir)
+# print(pathlib.Path("."))
+# print(pathlib.Path.cwd())
+# print(mainDir)
 print("######################")
 
 # main entry
