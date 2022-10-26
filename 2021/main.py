@@ -10,6 +10,7 @@ import day5.day5 as d5
 import day6.day6 as d6
 import day7.day7 as d7
 import day8.day8 as d8
+import day9.day9 as d9
 
 # import utils
 import utils.utils as utils
@@ -35,4 +36,5 @@ if __name__ == "__main__":
     # d6.solve(utils.readFile(mainDir / "day6/input.in"))
     # d7.solve(utils.readFile(mainDir / "day7/input.in"))
     # d8.solve(utils.readFile(mainDir / "day8/input.in"))
-    d8.solve(utils.readFile(mainDir / "day8/sample2.in"))
+    d9.solve(utils.readFile(mainDir / "day9/sample.in"))
+    # d9.solve(utils.readFile(mainDir / "day9/input.in"))
