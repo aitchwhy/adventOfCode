@@ -19,7 +19,7 @@ class Entry:
         self.signals = signals
         self.output = output
         # maps jumbled digit->real digit int
-        self.jumbleMap: dict[str, int] = dict()
+        self.jumbleMap: dict[frozenset, int] = dict()
 
     # orig mapping : a,b,c,d,e,f,g - topleft to bottomright
     def solve(self):
@@ -39,16 +39,16 @@ class Entry:
         for s in self.signals:
             # 1,4,7,8 -> unique
             if len(s) == 2:  # 1
-                self.jumbleMap[s] = 1
+                self.jumbleMap[frozenset(s)] = 1
                 numToSig[1] = s
             elif len(s) == 4:  # 4
-                self.jumbleMap[s] = 4
+                self.jumbleMap[frozenset(s)] = 4
                 numToSig[4] = s
             elif len(s) == 3:  # 7
-                self.jumbleMap[s] = 7
+                self.jumbleMap[frozenset(s)] = 7
                 numToSig[7] = s
             elif len(s) == 7:  # 8
-                self.jumbleMap[s] = 8
+                self.jumbleMap[frozenset(s)] = 8
                 numToSig[8] = s
             elif len(s) == 5:  # 2,3,5
                 seg5.append(s)
@@ -60,7 +60,7 @@ class Entry:
             beforeSLen = len(s)
             afterSLen = len(set(s) | set(numToSig[1]))
             if beforeSLen == afterSLen:
-                self.jumbleMap[s] = 3
+                self.jumbleMap[frozenset(s)] = 3
                 numToSig[3] = s
 
         # sub 4 (differentiate 2,5)
@@ -68,10 +68,10 @@ class Entry:
             beforeSLen = len(s)
             afterSLen = len(set(s) - set(numToSig[4]))
             if (beforeSLen - afterSLen) == 3:
-                self.jumbleMap[s] = 2
+                self.jumbleMap[frozenset(s)] = 2
                 numToSig[2] = s
             elif (beforeSLen - afterSLen) == 2:
-                self.jumbleMap[s] = 5
+                self.jumbleMap[frozenset(s)] = 5
                 numToSig[5] = s
 
         # sub 1 (find 6)
@@ -80,7 +80,7 @@ class Entry:
             beforeSLen = len(s)
             afterSLen = len(set(s) - set(numToSig[1]))
             if beforeSLen == (afterSLen+1):
-                self.jumbleMap[s] = 6
+                self.jumbleMap[frozenset(s)] = 6
                 numToSig[6] = s
 
         # sub 1 (find 6) - 2 removed
@@ -90,10 +90,10 @@ class Entry:
             beforeSLen = len(s)
             afterSLen = len(set(s) - set(numToSig[4]))
             if (beforeSLen - afterSLen) == 3:
-                self.jumbleMap[s] = 0
+                self.jumbleMap[frozenset(s)] = 0
                 numToSig[0] = s
             elif (beforeSLen - afterSLen) == 4:
-                self.jumbleMap[s] = 9
+                self.jumbleMap[frozenset(s)] = 9
                 numToSig[9] = s
 
         # print(self.jumbleMap, seg5, seg6, numToSig)
@@ -104,7 +104,7 @@ class Entry:
         final = 0
         for o in self.output:
             final *= 10
-            final += int(self.jumbleMap[o])
+            final += int(self.jumbleMap[frozenset(o)])
         return final
 
     def __repr__(self) -> str:
