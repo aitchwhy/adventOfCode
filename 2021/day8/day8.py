@@ -64,15 +64,16 @@ class Entry:
                 numToSig[3] = s
 
         # sub 4 (differentiate 2,5)
+        # TODO: Fix
         for s in [x for x in seg5 if x != numToSig[3]]:
             beforeSLen = len(s)
             afterSLen = len(set(s) - set(numToSig[4]))
             if (beforeSLen - afterSLen) == 3:
-                self.jumbleMap[frozenset(s)] = 2
-                numToSig[2] = s
-            elif (beforeSLen - afterSLen) == 2:
                 self.jumbleMap[frozenset(s)] = 5
                 numToSig[5] = s
+            elif (beforeSLen - afterSLen) == 2:
+                self.jumbleMap[frozenset(s)] = 2
+                numToSig[2] = s
 
         # sub 1 (find 6)
         # 6 - 6 segs. (of 6,9,0) - when subtract "1" - only 1 removed.
@@ -136,7 +137,9 @@ def solve(lineContents):
     # print(count)
 
     # part 2. Decode all jumbled signals. Then sum all 4 digit numbers.
+    sum = 0
     for entry in entries:
-        entry.solve()
-        print(f"solved entry : {entry}")
-        return
+        outputInt = entry.solve()
+        print(f"solved entry : {outputInt}")
+        sum += outputInt
+    print(sum)
