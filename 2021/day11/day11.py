@@ -18,19 +18,23 @@ class Grid():
         finalStr += "######"
         return finalStr
 
-    def __add__(self, otherGrid) -> None:
+    def __add__(self, otherGrid):
         # Note : Assuming 2 grids match in dimensions.
-        xLen = len(self.grid)
-        yLen = len(self.grid[0])
+        xLen = len(self.grid[0])
+        yLen = len(self.grid)
         for xIdx in range(xLen):
             for yIdx in range(yLen):
                 self.grid[xIdx][yIdx] += otherGrid.grid[xIdx][yIdx]
+        return self
 
     def get(self, x, y) -> int:
         return self.grid[y][x]
 
     def set(self, x, y, val):
         self.grid[y][x] = val
+
+    def isInBoundary(self, x, y) -> bool:
+        return (0 <= x < len(self.grid[0]) and 0 <= y < len(self.grid))
 
 
 class EnergyState(Grid):
@@ -41,21 +45,41 @@ class EnergyState(Grid):
             for xIdx, char in enumerate(line):
                 self.set(xIdx, yIdx, int(char))
 
-    # def __repr__(self) -> str:
-    #     return super().__repr__()
+    def setDelta(self, delta):
+        # for all > 9 cells, set neighboring cells' deltas as 1.
+        offsets = [(1, 0), (-1, 0), (0, 1), (0, -1),
+                   (-1, -1), (-1, 1), (1, -1), (1, 1)]
+
+        xLen = len(self.grid[0])
+        yLen = len(self.grid)
+        for xIdx in range(xLen):
+            for yIdx in range(yLen):
+                if self.get(xIdx, yIdx) > 9:
+                    self.set(xIdx, yIdx, 0)
+                    for offset in offsets:
+                        if self.isInBoundary(xIdx+offset[0], yIdx+offset[1]):
+                            delta.set(xIdx+offset[0], yIdx+offset[1], 1)
 
 
 class EnergyDelta(Grid):
     def __init__(self) -> None:
         super().__init__(10, 10)
 
-    # def __repr__(self) -> str:
-    #     return super().__repr__()
+    def setAll(self, val):
+        xLen, yLen = len(self.grid[0]), len(self.grid)
+        for xIdx in range(xLen):
+            for yIdx in range(yLen):
+                self.set(xIdx, yIdx, val)
 
     def isEmpty(self) -> bool:
         '''
         Check if ALL energy is 0 -> return True
         '''
+        xLen, yLen = len(self.grid[0]), len(self.grid)
+        for xIdx in range(xLen):
+            for yIdx in range(yLen):
+                if self.get(xIdx, yIdx) != 0:
+                    return False
         return True
 
 
@@ -83,4 +107,15 @@ def solve(lineContents):
 
     print(eState)
     print(eDelta)
+
     # TODO: should be 1656 flashes after 100 steps.
+    for stepIdx in range(2):
+        eDelta.setAll(1)
+        print(f"step {stepIdx}")
+        while (not eDelta.isEmpty()):
+            eState += eDelta
+            # TODO: NOT WORKING to set "0" -> must be set 0 for WHOLE step.
+            eDelta.setAll(0)
+            eState.setDelta(eDelta)
+        print(eState)
+        print(eDelta)
