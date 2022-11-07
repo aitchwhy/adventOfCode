@@ -34,8 +34,12 @@ class Grid():
 
 
 class EnergyState(Grid):
-    def __init__(self) -> None:
+    def __init__(self, initValueStrs) -> None:
         super().__init__(10, 10)
+
+        for yIdx, line in enumerate(initValueStrs):
+            for xIdx, char in enumerate(line):
+                self.set(xIdx, yIdx, int(char))
 
     # def __repr__(self) -> str:
     #     return super().__repr__()
@@ -74,5 +78,9 @@ def solve(lineContents):
     # - "energyStates" : One for current energy state
     # - "energyDeltas" : one for 1 iteration of energy delta to apply (result of "flash")
     #   - Use energyDeltas to update E state each loop - do while all delta != 0
+    eState = EnergyState(lineContents)
+    eDelta = EnergyDelta()
 
+    print(eState)
+    print(eDelta)
     # TODO: should be 1656 flashes after 100 steps.
