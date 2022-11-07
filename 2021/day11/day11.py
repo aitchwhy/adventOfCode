@@ -18,27 +18,35 @@ class Grid():
         finalStr += "######"
         return finalStr
 
-    def get(self, x, y) -> int:
-        pass
+    def __add__(self, otherGrid) -> None:
+        # Note : Assuming 2 grids match in dimensions.
+        xLen = len(self.grid)
+        yLen = len(self.grid[0])
+        for xIdx in range(xLen):
+            for yIdx in range(yLen):
+                self.grid[xIdx][yIdx] += otherGrid.grid[xIdx][yIdx]
 
-    def set(self, x, y):
-        pass
+    def get(self, x, y) -> int:
+        return self.grid[y][x]
+
+    def set(self, x, y, val):
+        self.grid[y][x] = val
 
 
 class EnergyState(Grid):
     def __init__(self) -> None:
-        pass
+        super().__init__(10, 10)
 
-    def __repr__(self) -> str:
-        pass
+    # def __repr__(self) -> str:
+    #     return super().__repr__()
 
 
 class EnergyDelta(Grid):
     def __init__(self) -> None:
-        pass
+        super().__init__(10, 10)
 
-    def __repr__(self) -> str:
-        pass
+    # def __repr__(self) -> str:
+    #     return super().__repr__()
 
     def isEmpty(self) -> bool:
         '''
@@ -51,9 +59,6 @@ def solve(lineContents):
     print(f"day 11 lineContents : {lineContents}")
 
     # TODO: Parse input (10x10) grid where each cell is octopus energy level.
-    x = Grid(8, 12)
-    x.grid[1][2] = 1
-    print(x)
 
     # Each step,
     # - EACH octopus energy +1.
@@ -69,3 +74,5 @@ def solve(lineContents):
     # - "energyStates" : One for current energy state
     # - "energyDeltas" : one for 1 iteration of energy delta to apply (result of "flash")
     #   - Use energyDeltas to update E state each loop - do while all delta != 0
+
+    # TODO: should be 1656 flashes after 100 steps.
