@@ -143,9 +143,21 @@ def solve(lineContents):
     print(eState)
 
     # TODO: should be 1656 flashes after 100 steps.
-    totalFlashCount = 0
-    for stepIdx in range(100):
-        print(f"step {stepIdx}")
-        totalFlashCount += eState.runStep()
-        print(f"totalFlashCount : {totalFlashCount}")
-        print(eState)
+    # totalFlashCount = 0
+    # for stepIdx in range(100):
+    #     print(f"step {stepIdx}")
+    #     totalFlashCount += eState.runStep()
+    #     print(f"totalFlashCount : {totalFlashCount}")
+    #     print(eState)
+
+    # part 2. Find first step when ALL octopus flash at same time.
+
+    step = 1
+    while True:
+        print(f"step {step}")
+        currStepFlashCount = eState.runStep()
+        print(f"currStepFlashCount : {currStepFlashCount}")
+        if (currStepFlashCount == (10*10)):
+            break
+        # print(eState)
+        step += 1
