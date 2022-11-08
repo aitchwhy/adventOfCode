@@ -3,15 +3,21 @@
 # TODO: custom Grid "+" operator to add 2 grids together.
 # https://www.codingem.com/python-__add__-method/
 
+
 class Grid():
+    OFFSETS = [(1, 0), (-1, 0), (0, 1), (0, -1),
+               (-1, -1), (-1, 1), (1, -1), (1, 1)]
     # 2D grid.
     # For debug convenience, "x" is left<>right index (leftside 0)
     # For debug convenience, "y" is top<>down index (topside 0)
+
     def __init__(self, xLen, yLen) -> None:
+        self.xLen = xLen
+        self.yLen = yLen
         self.grid = [[0]*(xLen) for _ in range(yLen)]
 
     def __repr__(self) -> str:
-        # TODO: 2d grid repr string
+        # 2d grid repr string
         finalStr = "######\n"
         for l in self.grid:
             finalStr += ("".join([str(x) for x in l]) + "\n")
@@ -20,10 +26,8 @@ class Grid():
 
     def __add__(self, otherGrid):
         # Note : Assuming 2 grids match in dimensions.
-        xLen = len(self.grid[0])
-        yLen = len(self.grid)
-        for xIdx in range(xLen):
-            for yIdx in range(yLen):
+        for xIdx in range(self.xLen):
+            for yIdx in range(self.yLen):
                 self.grid[xIdx][yIdx] += otherGrid.grid[xIdx][yIdx]
         return self
 
@@ -36,51 +40,84 @@ class Grid():
     def isInBoundary(self, x, y) -> bool:
         return (0 <= x < len(self.grid[0]) and 0 <= y < len(self.grid))
 
-
-class EnergyState(Grid):
-    def __init__(self, initValueStrs) -> None:
-        super().__init__(10, 10)
-
-        for yIdx, line in enumerate(initValueStrs):
-            for xIdx, char in enumerate(line):
-                self.set(xIdx, yIdx, int(char))
-
-    def setDelta(self, delta):
-        # for all > 9 cells, set neighboring cells' deltas as 1.
-        offsets = [(1, 0), (-1, 0), (0, 1), (0, -1),
-                   (-1, -1), (-1, 1), (1, -1), (1, 1)]
-
-        xLen = len(self.grid[0])
-        yLen = len(self.grid)
-        for xIdx in range(xLen):
-            for yIdx in range(yLen):
-                if self.get(xIdx, yIdx) > 9:
-                    self.set(xIdx, yIdx, 0)
-                    for offset in offsets:
-                        if self.isInBoundary(xIdx+offset[0], yIdx+offset[1]):
-                            delta.set(xIdx+offset[0], yIdx+offset[1], 1)
-
-
-class EnergyDelta(Grid):
-    def __init__(self) -> None:
-        super().__init__(10, 10)
+    def getNeighbors(self, x, y):
+        neighbors = []
+        for offset in self.OFFSETS:
+            neighborX, neighborY = x + offset[0], y + offset[1]
+            if self.isInBoundary(neighborX, neighborY):
+                neighbors.append((neighborX, neighborY))
+        return neighbors
 
     def setAll(self, val):
-        xLen, yLen = len(self.grid[0]), len(self.grid)
-        for xIdx in range(xLen):
-            for yIdx in range(yLen):
+        for xIdx in range(self.xLen):
+            for yIdx in range(self.yLen):
                 self.set(xIdx, yIdx, val)
+
+    def incrAll(self):
+        for xIdx in range(self.xLen):
+            for yIdx in range(self.yLen):
+                self.set(xIdx, yIdx, self.get(xIdx, yIdx)+1)
 
     def isEmpty(self) -> bool:
         '''
         Check if ALL energy is 0 -> return True
         '''
-        xLen, yLen = len(self.grid[0]), len(self.grid)
-        for xIdx in range(xLen):
-            for yIdx in range(yLen):
+        for xIdx in range(self.xLen):
+            for yIdx in range(self.yLen):
                 if self.get(xIdx, yIdx) != 0:
                     return False
         return True
+
+
+class EnergyState(Grid):
+
+    def __init__(self, initValueStrs) -> None:
+        super().__init__(5, 5)
+        self.flashed = [[False]
+                        * (self.xLen) for _ in range(self.yLen)]
+
+        for yIdx, line in enumerate(initValueStrs):
+            for xIdx, char in enumerate(line):
+                self.set(xIdx, yIdx, int(char))
+
+    def runStep(self):
+        # Incr all cells by 1.
+        self.incrAll()
+
+        # Flash all cells > 9
+        keepFlashing = True
+        totalFlashCount = 0
+        while keepFlashing:
+            flashedCount = self.flash()
+            totalFlashCount += flashedCount
+            keepFlashing = (flashedCount > 0)
+
+        # reset flashed back to not flashed + set to 0
+        self.resetFlashed()
+        return totalFlashCount
+
+    def flash(self):
+        # for all > 9 cells - set current cell as "flashed"
+        flashCount = 0
+        for xIdx in range(self.xLen):
+            for yIdx in range(self.yLen):
+                notFlashed = (self.flashed[yIdx][xIdx] == False)
+                if (self.get(xIdx, yIdx) > 9) and (notFlashed):
+                    # Process flash neighbors
+                    for n in self.getNeighbors(xIdx, yIdx):
+                        self.set(n[0], n[1], self.get(n[0], n[1])+1)
+                    # set to "flashed"
+                    self.flashed[yIdx][xIdx] = True
+                    flashCount += 1
+        return flashCount
+
+    def resetFlashed(self):
+        # reset all "flashed" cells to not flashed + set to 0
+        for xIdx in range(self.xLen):
+            for yIdx in range(self.yLen):
+                if self.flashed[yIdx][xIdx]:
+                    self.flashed[yIdx][xIdx] = False
+                    self.set(xIdx, yIdx, 0)
 
 
 def solve(lineContents):
@@ -103,19 +140,10 @@ def solve(lineContents):
     # - "energyDeltas" : one for 1 iteration of energy delta to apply (result of "flash")
     #   - Use energyDeltas to update E state each loop - do while all delta != 0
     eState = EnergyState(lineContents)
-    eDelta = EnergyDelta()
-
     print(eState)
-    print(eDelta)
 
     # TODO: should be 1656 flashes after 100 steps.
     for stepIdx in range(2):
-        eDelta.setAll(1)
         print(f"step {stepIdx}")
-        while (not eDelta.isEmpty()):
-            eState += eDelta
-            # TODO: NOT WORKING to set "0" -> must be set 0 for WHOLE step.
-            eDelta.setAll(0)
-            eState.setDelta(eDelta)
+        eState.runStep()
         print(eState)
-        print(eDelta)
