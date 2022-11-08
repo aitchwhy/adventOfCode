@@ -72,7 +72,7 @@ class Grid():
 class EnergyState(Grid):
 
     def __init__(self, initValueStrs) -> None:
-        super().__init__(5, 5)
+        super().__init__(10, 10)
         self.flashed = [[False]
                         * (self.xLen) for _ in range(self.yLen)]
 
@@ -143,7 +143,9 @@ def solve(lineContents):
     print(eState)
 
     # TODO: should be 1656 flashes after 100 steps.
-    for stepIdx in range(2):
+    totalFlashCount = 0
+    for stepIdx in range(100):
         print(f"step {stepIdx}")
-        eState.runStep()
+        totalFlashCount += eState.runStep()
+        print(f"totalFlashCount : {totalFlashCount}")
         print(eState)

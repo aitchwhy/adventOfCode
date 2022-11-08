@@ -40,9 +40,9 @@ if __name__ == "__main__":
     # d8.solve(utils.readFile(mainDir / "day8/input.in"))
     # d9.solve(utils.readFile(mainDir / "day9/input.in"))
     # d10.solve(utils.readFile(mainDir / "day10/input.in"))
-    d11.solve(utils.readFile(mainDir / "day11/sample.in"))
+    # d11.solve(utils.readFile(mainDir / "day11/sample.in"))
     # d11.solve(utils.readFile(mainDir / "day11/sample2.in"))
-    # d11.solve(utils.readFile(mainDir / "day11/input.in"))
+    d11.solve(utils.readFile(mainDir / "day11/input.in"))
 
 
 # First, the energy level of each octopus increases by 1.
