@@ -75,8 +75,65 @@ class Graph():
         finalStr += "#################"
         return finalStr
 
+    def DFS(self):
+        # use DFS backtracking to find all possible paths (start) -> (end).
+        paths = []
 
-# use DFS backtracking to find all possible paths
+        # Find start Node.
+        startNode = [n for n in self.graph.keys() if n.isStart()][0]
+        endNode = [n for n in self.graph.keys() if n.isEnd()][0]
+
+        # backtracking DFS.
+        # TODO: With recursion
+        currPath = []
+
+        def traverse(node):
+            nonlocal paths, currPath
+
+            # print(node, currPath)
+
+            # exit if already visited (in curr Path & small cave)
+            if (node in currPath) and (node.isSmallCave()):
+                return
+
+            # if len(currPath) > 10:
+            #     return
+
+            # Visit current node
+            currPath.append(node)
+            if node.isEnd():
+                # found path to end
+                # print(f"~~~~~~found path to end : {currPath}")
+                paths.append(currPath.copy())
+                currPath.pop()
+                return
+
+            # Traverse all neighbors of current node.
+            for neighbor in self.getNodeNeighbors(node):
+                # Traverse neighbor
+                traverse(neighbor)
+
+            # leave / backtrack current node
+            currPath.pop()
+
+        traverse(startNode)
+
+        # TODO: without recursion
+
+        # currPaths = [startNode]
+        # # do NOT put "big" caves into the - no need to check.
+        # while len(currPaths) > 0:
+        #     # process curr top of stack - current list of nodes (path).
+        #     currPath = currPaths.pop()
+        #     # Get curr neighbors. Only non-visited ones.
+        #     currNeighbors = [n for n in self.getNodeNeighbors(
+        #         currPath) if (n not in visited)]
+
+        #     # mark curr node as visited. Only if not "big" cave.
+        #     if currPath.isSmallCave():
+        #         visited.add(currPath)
+
+        return paths
 
 
 def solve(lineContents):
@@ -89,6 +146,11 @@ def solve(lineContents):
         g.parseEdgeStr(l)
     print(f"Printing Graph")
     print(g)
+
+    paths = g.DFS()
+    print(f"########### Printing paths")
+    print(*paths, sep="\n")
+    print(f"num paths found : {len(paths)}")
 
     # part 1. Find all possible paths from start to end (visiting small caves once).
 
