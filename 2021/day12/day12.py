@@ -90,10 +90,23 @@ class Graph():
         def traverse(node):
             nonlocal paths, currPath
 
+            def isVisitedNode(node, currPath):
+                # part 1 -> 1 visit limit for small caves.
+                nodeVisitCount = dict(Counter(currPath)).get(node, 0)
+                if node.isSmallCave():
+                    return nodeVisitCount > 0
+                else:
+                    return False
+                # part 2
+                pass
+
             # print(node, currPath)
 
             # exit if already visited (in curr Path & small cave)
-            if (node in currPath) and (node.isSmallCave()):
+            from collections import Counter
+            # Visited (1+ times)
+            # TODO: only
+            if isVisitedNode(node, currPath):
                 return
 
             # if len(currPath) > 10:
@@ -103,7 +116,7 @@ class Graph():
             currPath.append(node)
             if node.isEnd():
                 # found path to end
-                # print(f"~~~~~~found path to end : {currPath}")
+                print(f"~~~~~~found path to end : {currPath}")
                 paths.append(currPath.copy())
                 currPath.pop()
                 return
@@ -147,11 +160,12 @@ def solve(lineContents):
     print(f"Printing Graph")
     print(g)
 
+    # part 1. Find all possible paths from start to end (visiting small caves once).
     paths = g.DFS()
     print(f"########### Printing paths")
     print(*paths, sep="\n")
     print(f"num paths found : {len(paths)}")
 
-    # part 1. Find all possible paths from start to end (visiting small caves once).
-
-    # part 2.
+    # part 2. Find all possible paths start->end with changes in visit limits.
+    # - 1 small cave 2 visits, NOT ALL small caves 2 visits.
+    # - start, end can ONLY be visited once.
