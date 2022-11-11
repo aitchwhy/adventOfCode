@@ -51,7 +51,7 @@ class Grid():
         for l in self.grid:
             finalStr += ("".join(l) + "\n")
         finalStr += "##############\n"
-        finalStr += f"Folds : {self.folds}"
+        finalStr += f"Folds : {self.folds}\n"
         finalStr += "##############"
         return finalStr
 
@@ -60,10 +60,7 @@ class Grid():
 
     def getDotCount(self) -> int:
         from itertools import chain
-        oneDimGrid = chain(*self.grid)
-        print(self.grid)
-        print(oneDimGrid)
-        return 0
+        return list(chain(*self.grid)).count(Grid.DOT)
 
 
 def solve(lineContents):
@@ -74,6 +71,7 @@ def solve(lineContents):
     grid = Grid(lineContents)
     print("------ Printing grid")
     print(grid)
+    print(grid.getDotCount())
     # dots -> (x,y) where x (left->right) y (top->bottom). top-left is (0,0)
     # fold -> fold paper. y=N is horizontal fold, x=M is vertical fold.
     # - after fold, that line disappears + dots are merged.
