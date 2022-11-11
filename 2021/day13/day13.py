@@ -139,14 +139,14 @@ def solve(lineContents):
     print("------ Printing grid")
     print(grid)
     print(grid.getDotCount())
-    print("------ Printing grid after y-fold")
-    grid.fold(("y", 7))
-    print(grid)
-    print(grid.getDotCount())
-    print("------ Printing grid after x-fold")
-    grid.fold(("x", 5))
-    print(grid)
-    print(grid.getDotCount())
+
+    for idx, f in enumerate(grid.folds):
+        if (idx == 1):
+            break
+        print(f"------ Printing grid after fold {f}")
+        grid.fold(f)
+        print(grid)
+        print(grid.getDotCount())
 
     # part 1. How many dots are left after 1st folding?
 
