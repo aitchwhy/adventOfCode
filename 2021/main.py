@@ -14,6 +14,7 @@ import day9.day9 as d9
 import day10.day10 as d10
 import day11.day11 as d11
 import day12.day12 as d12
+import day13.day13 as d13
 
 # import utils
 import utils.utils as utils
@@ -42,9 +43,9 @@ if __name__ == "__main__":
     # d9.solve(utils.readFile(mainDir / "day9/input.in"))
     # d10.solve(utils.readFile(mainDir / "day10/input.in"))
     # d11.solve(utils.readFile(mainDir / "day11/input.in"))
-    # d12.solve(utils.readFile(mainDir / "day12/sample.in"))
-    # d12.solve(utils.readFile(mainDir / "day12/sample2.in"))
-    d12.solve(utils.readFile(mainDir / "day12/input.in"))
+    # d12.solve(utils.readFile(mainDir / "day12/input.in"))
+    d13.solve(utils.readFile(mainDir / "day13/sample.in"))
+    d13.solve(utils.readFile(mainDir / "day13/input.in"))
 
 
 # First, the energy level of each octopus increases by 1.
