@@ -87,30 +87,54 @@ class Graph():
         # TODO: With recursion
         currPath = []
 
+        def isVisitedNode(node, currPath):
+            # Big caves can be visited multiple times.
+            if node.isBigCave():
+                return False
+
+            from collections import Counter
+            nodeCounts = Counter(currPath)
+            nodeVisitCount = dict(nodeCounts).get(node, 0)
+            # print(
+            # f"node counts : {nodeCounts} --- node visit count: {nodeVisitCount}")
+
+            # start, end nodes can be visited only 1 time.
+            if node.isStart() or node.isEnd():
+                return (nodeVisitCount > 0)
+
+            # # part 1 -> 1 visit limit (1) for small caves.
+            # if node.isSmallCave():
+            #     return nodeVisitCount > 0
+
+            # part 2 -> visit 1 small cave 2 times (rest visit max 1). Visit start,end exactly 1.
+            totalOverVisitedSmallCaves = set()
+            for elem, count in Counter(currPath).items():
+                if elem.isSmallCave() and (not elem.isStart()) and (not elem.isEnd()) and count > 1:
+                    totalOverVisitedSmallCaves.add(elem)
+            # print(
+            #     f"total visited small caves : {totalOverVisitedSmallCaves}")
+
+            # Assumption : node.isSmallCave() == True
+            # if overvisited == 0 - then visit up to 2 times.
+            overVisitedCount = len(totalOverVisitedSmallCaves)
+            if overVisitedCount == 0:
+                return (nodeVisitCount >= 2)
+            elif overVisitedCount >= 1:
+                # if overvisited >= 1,
+                # - if overvisited == curr node, then already visited (2+).
+                # - if overvisited != curr, then visit up to 1 time.
+                if (node in totalOverVisitedSmallCaves):
+                    return True
+                else:
+                    return (nodeVisitCount >= 1)
+
         def traverse(node):
             nonlocal paths, currPath
 
-            def isVisitedNode(node, currPath):
-                # part 1 -> 1 visit limit for small caves.
-                nodeVisitCount = dict(Counter(currPath)).get(node, 0)
-                if node.isSmallCave():
-                    return nodeVisitCount > 0
-                else:
-                    return False
-                # part 2
-                pass
+            print(f"\n\nTraverse : {node} with path : {currPath}")
 
-            # print(node, currPath)
-
-            # exit if already visited (in curr Path & small cave)
-            from collections import Counter
-            # Visited (1+ times)
-            # TODO: only
             if isVisitedNode(node, currPath):
                 return
-
-            # if len(currPath) > 10:
-            #     return
 
             # Visit current node
             currPath.append(node)
