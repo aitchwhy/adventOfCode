@@ -1,7 +1,9 @@
 
+# TODO: problem 13 seems slightly wrong? Not getting exact clear key codes.
 
 class Grid():
-    DOT, EMPTY = "#", "."
+    # DOT, EMPTY = "#", "."
+    DOT, EMPTY = "*", " "
 
     from enum import Enum
 
@@ -83,8 +85,12 @@ class Grid():
                     # bottom half -> fill as flipped
                     # (0, 13) -> folded y=7 -> (0, 1)
                     # (15 ydim - 1) - (13 dotY) = 1
-                    flippedDotY = (self.yDim - 1) - dotY
+                    # flippedDotY = (self.yDim - 1) - dotY
+                    flippedDotY = (foldAxisPos - (dotY - foldAxisPos))
                     newDotX, newDotY = dotX, flippedDotY
+                elif dotY == foldAxisPos:
+                    # fold line -> skip
+                    continue
                 # fill new dot
                 newGrid[newDotY][newDotX] = Grid.DOT
                 newDots.append((newDotX, newDotY))
@@ -110,8 +116,12 @@ class Grid():
                     newDotX, newDotY = dotX, dotY
                 elif dotX > foldAxisPos:
                     # right half -> fill as flipped
-                    flippedDotX = (self.xDim - 1) - dotX
+                    # flippedDotX = (self.xDim - 1) - dotX
+                    flippedDotX = (foldAxisPos - (dotX - foldAxisPos))
                     newDotX, newDotY = flippedDotX, dotY
+                elif dotY == foldAxisPos:
+                    # fold line -> skip
+                    continue
                 # fill new dot
                 newGrid[newDotY][newDotX] = Grid.DOT
                 newDots.append((newDotX, newDotY))
@@ -128,7 +138,7 @@ class Grid():
 
 
 def solve(lineContents):
-    print("------- printing line contents")
+    # print("------- printing line contents")
     print(lineContents)
 
     # parse input.
@@ -137,17 +147,31 @@ def solve(lineContents):
     # - after fold, that line disappears + dots are merged.
     grid = Grid(lineContents)
     print("------ Printing grid")
-    print(grid)
+    # print(grid)
     print(grid.getDotCount())
 
+    # part 1. How many dots are left after 1st folding?
+    # for idx, f in enumerate(grid.folds):
+    #     if (idx == 1):
+    #         break
+    #     print(f"------ Printing grid after fold {f}")
+    #     grid.fold(f)
+    #     # print(grid)
+    #     print(grid.getDotCount())
+
+    # part 2. Perform all folds from input. What is 8 capital letter in the grid?
     for idx, f in enumerate(grid.folds):
-        if (idx == 1):
-            break
         print(f"------ Printing grid after fold {f}")
         grid.fold(f)
         print(grid)
         print(grid.getDotCount())
 
-    # part 1. How many dots are left after 1st folding?
 
-    # part 2.
+# Final after folding
+
+# ...##.#..#.##.#...##.#..#.#.##.#..#.
+# .#...##.#..#.####.####.#.##.###..#..#.
+# ..#....#.####.####..###.####.###..#..#.
+# ....#..#.##.#.####.##...#.##.###..#..#.
+# .##.#.#..#.####.####.#..#.#.#..####.
+# ..#.#.#..#.#..#.####.#..#.#..#.###..
