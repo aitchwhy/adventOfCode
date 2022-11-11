@@ -14,6 +14,7 @@ class Grid():
         self.xDim = maxX+1
         self.yDim = maxY+1
         self.grid = [[Grid.EMPTY] * self.xDim for _ in range(self.yDim)]
+        self.dots = dots
         for dot in dots:
             self.grid[dot[1]][dot[0]] = Grid.DOT
         self.folds = folds
@@ -55,8 +56,51 @@ class Grid():
         finalStr += "##############"
         return finalStr
 
-    def fold(self):
-        pass
+    def fold(self, foldInfo) -> None:
+        foldAxis, foldAxisPos = foldInfo
+
+        # remove fold line. Then merge flipped halfs.
+        # Then resize grid (xDim, yDim, grid)
+        if foldAxis == "y":
+            # horizontal fold.
+            # TODO: not sure if this fold logic is correct, what happens when not equal halves?
+            newXDim = self.xDim
+            newYDim = (foldAxisPos)
+            newGrid = [[Grid.EMPTY] * newXDim for _ in range(newYDim)]
+            # fill in dots from both halves of fold.
+            for dot in self.dots:
+                dotX, dotY = dot
+                # top half -> fill as original
+                if dotY < foldAxisPos:
+                    newGrid[dotY][dotX] = Grid.DOT
+                elif dotY > foldAxisPos:
+                    # bottom half -> fill as flipped
+                    # (0, 13) -> folded y=7 -> (0, 1)
+                    # (15 ydim - 1) - (13 dotY) = 1
+                    flippedDotX = (self.yDim - 1) - dotY
+                    newGrid[flippedDotX][dotX] = Grid.DOT
+            # update to new grid.
+            self.grid = newGrid
+        elif foldAxis == "x":
+            # vertical fold.
+
+            # TODO: not sure if this fold logic is correct, what happens when not equal halves?
+            newXDim = (foldAxisPos)
+            newYDim = self.yDim
+            newGrid = [[Grid.EMPTY] * newXDim for _ in range(newYDim)]
+            # fill in dots from both halves of fold.
+            for dot in self.dots:
+                dotX, dotY = dot
+                # left half -> fill as original
+                if dotX < foldAxisPos:
+                    newGrid[dotY][dotX] = Grid.DOT
+                elif dotX > foldAxisPos:
+                    # right half -> fill as flipped
+                    flippedDotX = (self.xDim - 1) - dotX
+                    newGrid[dotY][flippedDotX] = Grid.DOT
+
+            # update to new grid.
+            self.grid = newGrid
 
     def getDotCount(self) -> int:
         from itertools import chain
@@ -68,13 +112,17 @@ def solve(lineContents):
     print(lineContents)
 
     # parse input.
+    # dots -> (x,y) where x (left->right) y (top->bottom). top-left is (0,0)
+    # fold -> fold paper. y=N is horizontal fold, x=M is vertical fold.
+    # - after fold, that line disappears + dots are merged.
     grid = Grid(lineContents)
     print("------ Printing grid")
     print(grid)
     print(grid.getDotCount())
-    # dots -> (x,y) where x (left->right) y (top->bottom). top-left is (0,0)
-    # fold -> fold paper. y=N is horizontal fold, x=M is vertical fold.
-    # - after fold, that line disappears + dots are merged.
+    print("------ Printing grid after fold")
+    grid.fold(("y", 7))
+    print(grid)
+    print(grid.getDotCount())
 
     # part 1. How many dots are left after 1st folding?
 
