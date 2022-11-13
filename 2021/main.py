@@ -16,6 +16,17 @@ import day11.day11 as d11
 import day12.day12 as d12
 import day13.day13 as d13
 import day14.day14 as d14
+import day15.day15 as d15
+# import day16.main as d16
+# import day17.main as d17
+# import day18.main as d18
+# import day19.main as d19
+# import day20.main as d20
+# import day21.main as d21
+# import day22.main as d22
+# import day23.main as d23
+# import day24.main as d24
+# import day25.main as d25
 
 # import utils
 import utils.utils as utils
@@ -46,5 +57,6 @@ if __name__ == "__main__":
     # d11.solve(utils.readFile(mainDir / "day11/input.in"))
     # d12.solve(utils.readFile(mainDir / "day12/input.in"))
     # d13.solve(utils.readFile(mainDir / "day13/input.in"))
-    # d14.solve(utils.readFile(mainDir / "day14/sample.in"))
-    d14.solve(utils.readFile(mainDir / "day14/input.in"))
+    # d14.solve(utils.readFile(mainDir / "day14/input.in"))
+    d15.solve(utils.readFile(mainDir / "day15/sample.in"))
+    # d15.solve(utils.readFile(mainDir / "day15/input.in"))
