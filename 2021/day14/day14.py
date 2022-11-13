@@ -1,17 +1,25 @@
 
 
 class Rule():
-    SPLIT_STR = "->"
-
     def __init__(self, before, after) -> None:
         self.before = before
         self.after = after
 
-    def __repr__(self) -> str:
-        return f"({self.before}) -> ({self.after})"
+    # def __repr__(self) -> str:
+    #     return f"({self.before}) -> ({self.after})"
+
+    # # Make this hashable in dictionary. Assume good input (self.before unique)
+    # def __hash__(self):
+    #     return hash(self.before)
+
+    # def __eq__(self, otherRule):
+    #     if not isinstance(otherRule, Rule):
+    #         return False
+    #     return (self.before == otherRule.Before)
 
 
 class Polymer():
+    SPLIT_STR = "->"
 
     @staticmethod
     def parseInput(lines):
@@ -25,22 +33,58 @@ class Polymer():
                 continue
             else:  # idx >= 2
                 rules.append(Rule(*[x.strip()
-                             for x in l.split(Rule.SPLIT_STR)]))
+                             for x in l.split(Polymer.SPLIT_STR)]))
         return template, rules
 
     def __init__(self, template, rules) -> None:
         self.template = template
-        self.rules = rules
+        from collections import defaultdict
+        self.rules = defaultdict(str)
+        for r in rules:
+            self.rules[r.before] = r.after
 
     def __repr__(self) -> str:
         finalStr = "##############\n"
         finalStr += f"Template : ({self.template})\n"
         finalStr += "##############\n"
         finalStr += "Rules\n"
-        for r in self.rules:
-            finalStr += f"{r}\n"
+        print(self.rules)
+        for before, after in self.rules.items():
+            finalStr += f"{before}->{after}\n"
         finalStr += "##############"
         return finalStr
+
+    def getMatched(self, matchStr):
+        '''
+        Return matched string (self.after) if arg string matches a rule.before.
+        Return empty string if NO matches.
+        '''
+        return self.rules.get(matchStr, "")
+
+    def turn(self) -> None:
+        from itertools import zip_longest, islice, starmap, accumulate
+        # generate pairs (consec 2 elems in order) for insertion computation.
+        befores = islice(self.template, 0, len(self.template)-1)
+        afters = islice(self.template, 1, len(self.template))
+        templatePairs = ["".join(p) for p in zip_longest(befores, afters)]
+
+        zipped = list(zip_longest(self.template, templatePairs))
+
+        def ruleApplied(currChar, ruleMatchPair):
+            # last char in template doesn't have pairs
+            if (ruleMatchPair is None):
+                return currChar
+            if (ruleMatchPair in self.rules.keys()):
+                return (currChar + self.rules[ruleMatchPair])
+            return currChar
+
+        rulesInserted = list(starmap(ruleApplied, zipped))
+
+        # zip orig + inserted to flat array.
+        accRulesInserted = list(accumulate(rulesInserted))[-1]
+
+        # Update after turn
+        self.template = (accRulesInserted)
 
 
 def solve(lineContents):
@@ -54,6 +98,8 @@ def solve(lineContents):
     template, rules = Polymer.parseInput(lineContents)
     p = Polymer(template, rules)
 
+    print(p)
+    p.turn()
     print(p)
 
     # part 1. After 10 steps, find MOST + LEAST common element of final string.
