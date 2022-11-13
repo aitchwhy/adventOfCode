@@ -98,12 +98,21 @@ def solve(lineContents):
     template, rules = Polymer.parseInput(lineContents)
     p = Polymer(template, rules)
 
-    print(p)
-    p.turn()
-    print(p)
-
     # part 1. After 10 steps, find MOST + LEAST common element of final string.
     # - What is (MOST - LEAST) ?
+
+    print(p)
+    for _ in range(10):
+        p.turn()
+        print(p)
+
+    # Python colletions.Counter can give MOST common -> LEAST (if no arg for num of most common elems specified)
+    from collections import Counter
+    cnt = Counter(p.template).most_common()
+    most_common, least_common = cnt[0], cnt[-1]
+    print(f"most common : {most_common}")
+    print(f"least common : {least_common}")
+    print(f"most - least diff : {most_common[1] - least_common[1]}")
 
     # part 2.
     pass
