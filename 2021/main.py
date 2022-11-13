@@ -45,5 +45,6 @@ if __name__ == "__main__":
     # d10.solve(utils.readFile(mainDir / "day10/input.in"))
     # d11.solve(utils.readFile(mainDir / "day11/input.in"))
     # d12.solve(utils.readFile(mainDir / "day12/input.in"))
+    # d13.solve(utils.readFile(mainDir / "day13/input.in"))
     # d14.solve(utils.readFile(mainDir / "day14/sample.in"))
     d14.solve(utils.readFile(mainDir / "day14/input.in"))

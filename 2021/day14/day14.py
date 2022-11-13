@@ -37,14 +37,27 @@ class Polymer():
         return template, rules
 
     def __init__(self, template, rules) -> None:
+        # part 1 init (naive full storage)
         self.template = template
         from collections import defaultdict
         self.rules = defaultdict(str)
         for r in rules:
             self.rules[r.before] = r.after
 
+        # part 2 init. Counter(char), Counter(special pairs)
+        from collections import Counter
+        self.charCounts = Counter(self.template)
+        from itertools import islice
+        befores = islice(self.template, 0, len(self.template) - 1)
+        afters = islice(self.template, 1, len(self.template))
+        self.pairCounts = Counter([b+a for b, a in zip(befores, afters)])
+
     def __repr__(self) -> str:
         finalStr = "##############\n"
+        finalStr += f"Char Counts : ({self.charCounts})\n"
+        finalStr += "##############\n"
+        finalStr += f"Pair Counts : ({self.pairCounts})\n"
+        finalStr += "##############\n"
         finalStr += f"Template : ({self.template})\n"
         finalStr += "##############\n"
         finalStr += "Rules\n"
@@ -86,6 +99,20 @@ class Polymer():
         # Update after turn
         self.template = (accRulesInserted)
 
+    def optimizedTurn(self):
+        # Keep counts only for reduced memory usage.
+        # 1 turn -> update pair counts + update elem counts according to rules.
+        for pair, count in list(self.pairCounts.items()):
+            if (pair in self.rules):
+                newChar = self.rules.get(pair, "")
+                self.charCounts[newChar] += count
+                newPair1, newPair2 = (pair[0] + newChar), (newChar + pair[1])
+                self.pairCounts[pair] -= count
+                if (newPair1 in self.rules):
+                    self.pairCounts[newPair1] += count
+                if (newPair2 in self.rules):
+                    self.pairCounts[newPair2] += count
+
 
 def solve(lineContents):
     # parse input.
@@ -102,17 +129,24 @@ def solve(lineContents):
     # - What is (MOST - LEAST) ?
 
     print(p)
-    for _ in range(10):
-        p.turn()
-        print(p)
+    STEP_COUNT = 40
+    for idx in range(STEP_COUNT):
+        print(f"step : {idx}")
+        # p.turn()
+        p.optimizedTurn()
 
     # Python colletions.Counter can give MOST common -> LEAST (if no arg for num of most common elems specified)
-    from collections import Counter
-    cnt = Counter(p.template).most_common()
+    # from collections import Counter
+    # cnt = Counter(p.template).most_common()
+    # most_common, least_common = cnt[0], cnt[-1]
+    # print(f"most common : {most_common}")
+    # print(f"least common : {least_common}")
+    # print(f"most - least diff : {most_common[1] - least_common[1]}")
+
+    # part 2. Make 40 turns instead of 10 to get most-least.
+    # TODO: times out if keeping full "template string" in memory. Optimize : keep dictionary of combos counts.
+    cnt = (p.charCounts.most_common())
     most_common, least_common = cnt[0], cnt[-1]
     print(f"most common : {most_common}")
     print(f"least common : {least_common}")
     print(f"most - least diff : {most_common[1] - least_common[1]}")
-
-    # part 2.
-    pass
