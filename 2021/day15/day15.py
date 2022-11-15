@@ -4,6 +4,9 @@
 # Naive -> DFS search from start-end and get min dist.
 # DP -> for each cell, compute smallest from curr-end. Re-use prev calculated (e.g. min dist from cells closer to end)
 
+# https://www.jasoncoelho.com/2021/12/chiton-advent-of-code-2021-day-15.html#:~:text=Day%2015%20of%20the%20Advent,1%20whilst%20maintaining%20low%20risk.
+
+
 class Graph():
 
     # X : left<>right (left = 0)
@@ -81,7 +84,32 @@ class Graph():
 
     # DP (memoized solution)
     def dp(self):
-        pass
+
+        # dp[i][j] := min risk from (i,j) to end
+
+        # fill in reverse order (bottom-right to top-left)
+        dp = [[float("inf")] * self.xDim for _ in range(self.yDim)]
+        # end risk is 0 (not leaving anything)
+        dp[-1][-1] = 0
+        # bottom row risk is just sum of all rightwards.
+        for xIdx in reversed(range(self.xDim-1)):
+            dp[-1][xIdx] = dp[-1][xIdx+1] + self.g[-1][xIdx]
+        # right col risk is just sum of all bottomwards.
+        for yIdx in reversed(range(self.yDim-1)):
+            dp[yIdx][-1] = dp[yIdx+1][-1] + self.g[yIdx][-1]
+
+        for xIdx in reversed(range(self.xDim-1)):
+            for yIdx in reversed(range(self.yDim-1)):
+                # min of rightwards and bottomwards
+                right = (dp[yIdx][xIdx+1])
+                bottom = (dp[yIdx+1][xIdx])
+                dp[yIdx][xIdx] = min(right, bottom) + self.g[yIdx][xIdx]
+
+        print(f"--------- printing DP table")
+        print(*dp, sep="\n")
+        print(f"---------")
+
+        return dp[0][0], None
 
 
 def solve(lines):
@@ -92,10 +120,16 @@ def solve(lines):
     # NOT count 1st cell (only risk incurred if "ENTERED")
 
     # part 1. Find path with SMALLEST risk total.
+    # Naive way runs too long on puzzle input. (Finishes sample though).
     print(lines)
     graph = Graph(lines)
     print(graph)
-    minRisk, minRiskPath = graph.dfs()
-    print(f"minRisk: {minRisk} --- minRiskPath: {minRiskPath}")
+    # minRisk, minRiskPath = graph.dfs()
+    # print(f"minRisk: {minRisk} --- minRiskPath: {minRiskPath}")
+
+    minRisk, _ = graph.dp()
+    print(f"minRisk: {minRisk}")
+
+    # Note : DP gave "714" -> "too low" (but somehow right answer for someone else)
 
     # part 2.
