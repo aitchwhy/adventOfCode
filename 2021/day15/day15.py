@@ -11,7 +11,9 @@ class Graph():
 
     # X : left<>right (left = 0)
     # Y : top<>bottom (top = 0)
-    def __init__(self, lines) -> None:
+    def __init__(self, lines, expandX=5, expandY=5) -> None:
+        self.expandX = expandX
+        self.expandY = expandY
         self.xDim = len(lines[0])
         self.yDim = len(lines)
         self.g = [[0] * self.xDim for _ in range(self.yDim)]
@@ -33,7 +35,26 @@ class Graph():
     # Total paths. (()! / ()!()!)
 
     def getRisk(self, x, y):
-        return self.g[y][x]
+        # TODO: update to expanded graph.
+
+        perTileIncrease = 1
+
+        # Bring X, Y to range of original tile.
+        incrCounter = 0
+        while (self.xDim <= x):
+            incrCounter += 1
+            x -= self.xDim
+        while (self.yDim <= y):
+            incrCounter += 1
+            y -= self.yDim
+
+        cellRisk = (incrCounter) + (self.g[y][x])
+        # wrap around if need be
+        while (cellRisk > 9):
+            cellRisk -= 9
+
+        # 30 -> 1~9, 1~9, 1~9, 1~9, 1~9
+        return cellRisk
 
     def getNeighbors(self, pos):
         neighbors = []
@@ -42,7 +63,7 @@ class Graph():
         for xOff, yOff in OFFSETS:
             newX = x + xOff
             newY = y + yOff
-            if ((0 <= newX < self.xDim) and (0 <= newY < self.yDim)):
+            if ((0 <= newX < (self.expandX * self.xDim)) and (0 <= newY < (self.expandY * self.yDim))):
                 neighbors.append((newX, newY))
         return neighbors
 
@@ -131,8 +152,8 @@ class Graph():
         visited = set()
         distToStart = dict()
         # init distToStart (to infinity)
-        for xIdx in range(self.xDim):
-            for yIdx in range(self.yDim):
+        for xIdx in range(self.xDim * self.expandX):
+            for yIdx in range(self.yDim * self.expandY):
                 distToStart[(xIdx, yIdx)] = float("inf")
         distToStart[self.START] = 0
 
@@ -153,8 +174,8 @@ class Graph():
                     continue  # skip visited nodes
 
                 # not-visited : update neighbor nodes' distToStart (to min of curr + new dist)
-                newDist = distToStart[currPos] + \
-                    (self.getRisk(neighbor[1], neighbor[0]))
+                newDist = currMinDist + \
+                    (self.getRisk(neighbor[0], neighbor[1]))
 
                 if (newDist < distToStart[neighbor]):
                     distToStart[neighbor] = newDist
@@ -164,7 +185,13 @@ class Graph():
             visited.add(currPos)
 
         # TODO: return minRisk path sum (except first one)
-        return distToStart[self.END]
+        origEndDistToStart = distToStart[self.END]
+        print(f"orig END dist to START : {origEndDistToStart}")
+        expandedEndDistToStart = distToStart[(
+            self.expandX * self.xDim - 1, self.expandY * self.yDim - 1)]
+        print(f"expanded END dist to START : {expandedEndDistToStart}")
+
+        return expandedEndDistToStart
 
 
 def solve(lines):
@@ -187,4 +214,10 @@ def solve(lines):
 
     # Note : DP gave "714" -> "too low" (but somehow right answer for someone else)
 
-    # part 2.
+    # part 2. 5x5 of input is new map (25x bigger). Then find minRisk path sum like part 1.
+    # Each 5x5 map all Cells +1 (wrap 9->1 no 0) when going RIGHT or DOWN.
+
+    # TODO: Try Naive 5x5
+
+    # TODO: somehow compute without actually doing it ??? Adding 1 each maybe is doable formulaically.
+    # Maybe just need to pay attention to "wrapped" (9->1) nodes, but otherwise computation dist can be re-used.
