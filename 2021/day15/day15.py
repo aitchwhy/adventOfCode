@@ -32,6 +32,20 @@ class Graph():
 
     # Total paths. (()! / ()!()!)
 
+    def getRisk(self, x, y):
+        return self.g[y][x]
+
+    def getNeighbors(self, pos):
+        neighbors = []
+        OFFSETS = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        x, y = pos
+        for xOff, yOff in OFFSETS:
+            newX = x + xOff
+            newY = y + yOff
+            if ((0 <= newX < self.xDim) and (0 <= newY < self.yDim)):
+                neighbors.append((newX, newY))
+        return neighbors
+
     # Naive solution - DFS.
     def dfs(self):
         # current path tracked til BEFORE current.
@@ -111,6 +125,47 @@ class Graph():
 
         return dp[0][0], None
 
+    def dijkstras(self):
+        # TODO: Implement Dijkstra's algorithm - find all node dist to START.
+
+        visited = set()
+        distToStart = dict()
+        # init distToStart (to infinity)
+        for xIdx in range(self.xDim):
+            for yIdx in range(self.yDim):
+                distToStart[(xIdx, yIdx)] = float("inf")
+        distToStart[self.START] = 0
+
+        # init min heap for iteration (key for comparison if tuple is 1st elem)
+        import heapq
+        # (dist, (xPos, yPos))
+        minHeap = []
+        heapq.heappush(minHeap, (0, self.START))
+
+        # iterate (pop min dist from START, then make that node visit)
+        while (len(minHeap) > 0):
+            # pop min dist from heap.
+            currMinDist, currPos = heapq.heappop(minHeap)
+
+            # visit all of non-visited neighbors of popped node.
+            for neighbor in self.getNeighbors(currPos):
+                if (neighbor in visited):
+                    continue  # skip visited nodes
+
+                # not-visited : update neighbor nodes' distToStart (to min of curr + new dist)
+                newDist = distToStart[currPos] + \
+                    (self.getRisk(neighbor[1], neighbor[0]))
+
+                if (newDist < distToStart[neighbor]):
+                    distToStart[neighbor] = newDist
+                    heapq.heappush(minHeap, (newDist, neighbor))
+
+            # mark curr node as visited
+            visited.add(currPos)
+
+        # TODO: return minRisk path sum (except first one)
+        return distToStart[self.END]
+
 
 def solve(lines):
     # parse input
@@ -123,11 +178,11 @@ def solve(lines):
     # Naive way runs too long on puzzle input. (Finishes sample though).
     print(lines)
     graph = Graph(lines)
-    print(graph)
+    # print(graph)
     # minRisk, minRiskPath = graph.dfs()
     # print(f"minRisk: {minRisk} --- minRiskPath: {minRiskPath}")
 
-    minRisk, _ = graph.dp()
+    minRisk = graph.dijkstras()
     print(f"minRisk: {minRisk}")
 
     # Note : DP gave "714" -> "too low" (but somehow right answer for someone else)
