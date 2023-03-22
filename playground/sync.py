@@ -1,5 +1,6 @@
 import requests
 import time
+from main import sites
 
 # download pages synchronously
 
@@ -15,12 +16,9 @@ def download_all(sites):
             download_url(url, session)
 
 
+# Downloaded 160 in 10.46486520767212 seconds
+
 if __name__ == "__main__":
-    sites = [
-        "http://google.com",
-        "http://olympus.realpython.org/dice",
-        "https://www.jython.org",
-    ]
     st = time.time()
     download_all(sites)
     et = time.time()
