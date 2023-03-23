@@ -1,5 +1,3 @@
-print("hello")
-
 
 sites = [
     "http://olympus.realpython.org/dice",

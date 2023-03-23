@@ -1,11 +1,14 @@
-import requests
-import time
+import concurrent.futures
+import threading
 from main import sites
+import time
+import requests
+import debugpy
+debugpy.debug_this_thread()
+
 
 # download pages async (threading) - pre-emptive multitasking
 
-import threading
-import concurrent.futures
 thread_local = threading.local()
 
 
@@ -16,8 +19,9 @@ def get_session():
     return thread_local.session
 
 
-def download_url(url: str):
+def download_url(foo, url: str):
     session = get_session()
+    print(f"foo : {foo} --- url : {url}")
     with session.get(url) as response:
         print(f"Read {len(response.content)} from {url}")
 
